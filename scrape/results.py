@@ -33,20 +33,3 @@ for col in ['week_number', 'winner_points', 'loser_points']:
 
 for team in ['winner', 'loser']:
     df[[f'{team}_rank', f'{team}_school_name']] = df[f'{team}_school_name'].str.extract(r'(?:\((\d+)\)\s)?(.*)')
-df.head()
-import networkx as nx
-
-MDG = nx.MultiDiGraph()
-MDG.add_edges_from(df[['loser_school_name', 'winner_school_name']].itertuples(index=False))
-list(nx.dfs_tree(MDG, 'Alabama', depth_limit=2))
-list(MDG.predecessors('Alabama'))
-list(MDG.successors('Alabama'))
-list(MDG.successors('Auburn'))
-list(MDG.successors('Clemson'))
-list(MDG.successors('Syracuse'))
-list(nx.dfs_tree(MDG, 'Alabama'))
-len(list(nx.dfs_tree(MDG, 'Alabama')))
-len(MDG.nodes)
-df.to_pickle('2017.pkl')
-import os
-os.getcwd()
